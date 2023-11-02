@@ -69,6 +69,9 @@ class LiteratureDataset:
     def get_abstracts(self, idx):
         return self.data[idx]["Abstract"].tolist()
 
+    def get_titles(self, idx):
+        return self.data[idx]["Title"].tolist()
+
     def fetch_data(
         self,
     ):
