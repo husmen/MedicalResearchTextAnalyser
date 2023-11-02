@@ -4,6 +4,7 @@ import medspacy
 import nltk
 import numpy as np
 import pandas as pd
+import spacy
 from empath import Empath
 
 # import medspacy
@@ -11,7 +12,9 @@ from gensim.models.doc2vec import Doc2Vec
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from nltk.tokenize import word_tokenize
+from quickumls import QuickUMLS
 
+# from quickumls.spacy_component import SpacyQuickUMLS
 # from core.utils import logger
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
@@ -32,6 +35,11 @@ class NlpPipeline:
         # self.medspacy_model = medspacy.load()
         self.gensim_model = Doc2Vec(vector_size=30, min_count=2, epochs=80)
         self.medspacy = medspacy.load()
+        self.spacy_nlp = spacy.load("en_core_web_sm")
+        self.spacy_nlp.max_length = 2000000
+        # self.spacy_quickumls = SpacyQuickUMLS(self.spacy_nlp, "/data/UMLS/QuickUMLS/")
+        # self.spacy_nlp.add_pipe(self.spacy_quickumls.name)
+        self.matcher = QuickUMLS("/data/UMLS/QuickUMLS")
 
     def preprocess(self, db: list[str], stem: bool = False):
         """Preprocess a list of documents."""
@@ -201,6 +209,16 @@ class NlpPipeline:
         sims_df = pd.DataFrame(sims, index=df_header, columns=df_header)
 
         return sims_df
+
+    def quickumls(self, db: list[str]):
+        """Compute QuickUMLS entities for a list of documents."""
+        # text = " ".join([w for doc in db for w in doc])
+        # doc = self.spacy_nlp(text)
+
+        text = " ".join(db)
+        doc = self.matcher.match(text, best_match=True, ignore_syntax=False)
+
+        return doc
 
     # def medspacy(self, db: list[str]):
     #     """Compute MedSpaCy entities for a list of documents."""

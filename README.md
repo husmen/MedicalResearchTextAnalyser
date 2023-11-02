@@ -6,12 +6,6 @@ A system for linguistic inquiry and text analysis of medical research using UMLS
 
 **N.B.** Tested on Linux (OpenSUSE Tumbleweed, Kernel 6.5.9-1)
 
-### UMLS Setup
-
-1. Acquire a license and download the [full UMLS resources](https://www.nlm.nih.gov/research/umls/licensedcontent/umlsknowledgesources.html).
-1. Install MetamorphoSys by following these [instructions](https://www.nlm.nih.gov/research/umls/implementation_resources/metamorphosys/index.html).
-1. Follow the [QuickUMLS initialization process](https://github.com/Georgetown-IR-Lab/QuickUMLS).
-
 ### Environment Setup
 
 ```bash
@@ -21,8 +15,15 @@ source .venv/bin/activate
 # windows
 # .venv\Scripts\activate
 pip install -r requirements.txt
+python -m spacy download en_core_web_sm
 jupyter lab MedicalResearchTextAnalyser.ipynb 
 ```
+
+### UMLS Setup
+
+1. Acquire a license and download the [full UMLS resources](https://www.nlm.nih.gov/research/umls/licensedcontent/umlsknowledgesources.html).
+1. Install MetamorphoSys by following these [instructions](https://www.nlm.nih.gov/research/umls/implementation_resources/metamorphosys/index.html).
+1. Follow the [QuickUMLS initialization process](https://github.com/Georgetown-IR-Lab/QuickUMLS).
 
 ## Features
 
@@ -46,6 +47,8 @@ jupyter lab MedicalResearchTextAnalyser.ipynb
     AND ( LIMIT-TO ( LANGUAGE , "English" ) )
     ```
 
+![Scopus Search Query](./imgs/scopus_search.png)
+
 ### NLP Pipeline
 
 - [X] Data Preprocessing
@@ -61,9 +64,16 @@ jupyter lab MedicalResearchTextAnalyser.ipynb
 ### Visualization
 
 - [X] Word Clouds
-- [X] Topic historgams
+![Scopus Search Query](./imgs/wcloud.png)
+
+- [X] Topic historgam
+![Scopus Search Query](./imgs/hist.png)
+
 - [X] TF-IDF Charts
+![Scopus Search Query](./imgs/tfidf.png)  
+
 - [X] Similarity Matrix Heatmaps
+![Scopus Search Query](./imgs/heatmap.png)  
 - [ ] GUI
 
 ## Future Work
