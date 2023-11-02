@@ -13,7 +13,7 @@ python main.py
 ## TODO
 
 - [X] Data mining
-- [X] Word Cloud
+- [X] Word Cloud and Histograms
 - [X] Category Analysis with Empath
 - [X] Category Correlation
 - [ ] UMLS Analysis with cTakes
